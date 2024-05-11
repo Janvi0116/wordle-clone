@@ -1,0 +1,94 @@
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+.app {
+  text-align: center;
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-family: 'Monoton', cursive;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+/* Game.css */
+.game-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Game.css */
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+#game {
+  width: 50%;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.gridSquare {
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 50px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#keyBoard {
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.keyboardLetters {
+  height: 30px;
+  width: 30px;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#enter {
+  height: 30px;
+  width: 65px;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  background-color: aqua;
+  cursor: pointer;
+}
+
+#delete {
+  height: 30px;
+  width: 70px;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  background-color: red;
+  cursor: pointer;
+}
