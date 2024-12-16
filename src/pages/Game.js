@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Board from '../components/Board';
 import Keyboard from '../components/Keyboard';
+import RulesModal from '../components/RulesModal';
+import Credits from '../components/Credits';
 import './../App.css';
 
 const dictionary = ["PRUDE", "TRASH", "SKANK", "BITCH", "SNAKE", "TOWER"];
@@ -18,6 +20,9 @@ const Game = () => {
   const [currentCol, setCurrentCol] = useState(0);
   const [todaysWord, setTodaysWord] = useState('BROAD');
   const [letterClickNotAllowed, setLetterClickNotAllowed] = useState(false);
+  const [showRules, setShowRules] = useState(() => {
+    return !localStorage.getItem('wordleRulesShown');
+  });
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * dictionary.length);
@@ -35,6 +40,10 @@ const Game = () => {
 
   const handleClick = (letter) => {
     if (letterClickNotAllowed) return;
+
+    if (currentRow >= 6) return;
+
+    if (currentCol >= 5) return;
 
     const newGrid = [...grid];
     newGrid[currentRow][currentCol] = letter;
@@ -120,18 +129,48 @@ const Game = () => {
     return userWord === todaysWord.toUpperCase();
   };
 
+  const handleCloseRules = () => {
+    setShowRules(false);
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      const key = event.key.toUpperCase();
+      
+      if (/^[A-Z]$/.test(key)) {
+        handleClick(key);
+      }
+      else if (event.key === 'Enter') {
+        handleEnter();
+      }
+      else if (event.key === 'Backspace' || event.key === 'Delete') {
+        handleDelete();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [currentCol, currentRow, letterClickNotAllowed]);
+
   return (
-    <div className="game-container">
-      <h1 className="title">Wordle</h1>
-      <div className="game">
-        <Board grid={grid} />
-        <Keyboard
-          handleClick={handleClick}
-          handleEnter={handleEnter}
-          handleDelete={handleDelete}
-        />
+    <>
+      {showRules && <RulesModal onClose={handleCloseRules} />}
+      <div className="game-container">
+        <h1 className="title">Wordle</h1>
+        <div className="game">
+          <Board grid={grid} />
+          <Keyboard
+            handleClick={handleClick}
+            handleEnter={handleEnter}
+            handleDelete={handleDelete}
+          />
+        </div>
       </div>
-    </div>
+      <Credits />
+    </>
   );
 };
 
